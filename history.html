@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全業務履歴｜ねこのてエンジニア</title>
+<meta name="description" content="ねこのてエンジニア 大瀬康彦の30年・25プロジェクトの全業務履歴。組み込みソフトウェア開発を中心に、公共系から車載、POS・決済端末、生成AI活用まで。">
+<link rel="icon" type="image/png" href="assets/paw-small.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b2b33; --ink-soft: #55555f;
+    --paper: #fdfcf9; --paper-warm: #f6f2ea;
+    --accent: #c96f4a; --accent-deep: #a4522f;
+    --navy: #2e3a4e; --line: #e5dfd3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Noto Sans JP", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.85; font-size: 16px; }
+  h1, h2, h3 { font-family: "Zen Maru Gothic", "Noto Sans JP", sans-serif; }
+  a { color: var(--accent-deep); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  header { position: sticky; top: 0; z-index: 50; background: rgba(253,252,249,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .nav .back { color: var(--ink-soft); text-decoration: none; font-size: .9rem; font-weight: 500; }
+  .nav .back:hover { color: var(--accent-deep); }
+
+  .page-head { padding: 64px 0 40px; }
+  .page-head .en { color: var(--accent); font-weight: 700; letter-spacing: .15em; font-size: .8rem; text-transform: uppercase; }
+  .page-head .en::before { content: ""; display: inline-block; width: 15px; height: 16px; margin-right: 7px; vertical-align: -2px; background: url("assets/paw-small.png") no-repeat center/contain; }
+  .page-head h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); font-weight: 900; margin-top: 6px; }
+  .page-head p { color: var(--ink-soft); margin-top: 14px; max-width: 640px; }
+
+  .era { margin: 46px 0 8px; }
+  .era h2 { font-size: 1.25rem; font-weight: 900; color: var(--accent-deep); }
+  .era p { color: var(--ink-soft); font-size: .9rem; }
+
+  .tl { list-style: none; margin: 26px 0 70px; }
+  .tl li { position: relative; padding: 0 0 30px 30px; border-left: 2px solid var(--line); margin-left: 8px; }
+  .tl li:last-child { padding-bottom: 6px; }
+  .tl li::before { content: ""; position: absolute; left: -8px; top: 10px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 3px solid var(--paper); }
+  .tl .period { font-weight: 700; color: var(--accent-deep); font-size: .85rem; }
+  .tl h3 { font-size: 1.06rem; font-weight: 700; margin: 2px 0 6px; }
+  .tl .desc { font-size: .92rem; color: var(--ink-soft); margin-bottom: 10px; }
+  .tl .tech { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tl .tech span { background: var(--paper-warm); color: var(--ink-soft); font-size: .74rem; padding: 2px 11px; border-radius: 999px; }
+
+  html.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  html.js .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { html.js .reveal { opacity: 1; transform: none; transition: none; } }
+
+  .backline { text-align: center; padding: 20px 0 70px; }
+  .btn-outline { display: inline-block; border: 2px solid var(--accent); color: var(--accent-deep); font-weight: 700; text-decoration: none; padding: 12px 30px; border-radius: 999px; }
+  .btn-outline:hover { background: var(--accent); color: #fff; }
+
+  footer { background: var(--navy); color: #cfd6e0; padding: 40px 0; text-align: center; font-size: .85rem; }
+  footer .brand-f { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; color: #fff; font-size: 1rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img width="24" height="26" style="flex:none;object-fit:contain;" alt="" src="assets/paw-small.png">ねこのてエンジニア</a>
+    <a class="back" href="index.html">← トップへ戻る</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="en">Full Work History</div>
+    <h1>全業務履歴（1994 – 現在）</h1>
+    <p>C言語がようやく普及し始めた頃のUNIXワークステーションから、AUTOSARやローカルLLMまで。30年・25プロジェクトの歩みです。新しいものから順に並んでいます。</p>
+  </div>
+
+  <div class="era reveal">
+    <h2>フリーランス期（2023 – 現在）</h2>
+    <p>独立後はPOS・決済端末の開発に参画し、生成AIの実務活用へ。</p>
+  </div>
+  <ul class="tl">
+    <li class="reveal">
+      <div class="period">2026.04 –（参画中）</div>
+      <h3>次期POSシステム 作業効率化（生成AI活用）</h3>
+      <p class="desc">POSシステムで使用するモジュールのテスト作業を、生成AIで効率化・自動化するシステムの考案・開発。ローカルLLMの知見を深めながら、業務効率化ソリューションの提案も担当。</p>
+      <div class="tech"><span>C/C++/C#</span><span>組み込みWindows</span><span>Claude Code</span><span>VMware</span><span>GitHub</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2025.10 – 2026.03</div>
+      <h3>決済端末開発</h3>
+      <p class="desc">非接触ICクレジット機能移植の設計・製造・テスト。Unity/CMockによるテスト自動化や、生成AI（プロンプトエンジニアリング）を活用した作業効率化を実践。</p>
+      <div class="tech"><span>C</span><span>組み込みLinux</span><span>Unity/CMock</span><span>Claude Code</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2024.06 – 2025.09</div>
+      <h3>次期POSシステム開発（電子マネー）</h3>
+      <p class="desc">POS本体の電子マネー決済まわりの設計・製造・テスト（全体約100名規模）。VB.NET / Microsoft SQL Server による.NET開発の知見を獲得。</p>
+      <div class="tech"><span>VB.NET</span><span>VB6</span><span>SQL Server</span><span>PowerShell</span><span>組み込みWindows10</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2023.12 – 2024.05</div>
+      <h3>携帯決済端末（Handy Terminal）アプリ開発</h3>
+      <p class="desc">Android端末向け決済アプリの設計・製造・テスト。Java によるAndroidアプリ開発を担当。</p>
+      <div class="tech"><span>Java</span><span>Android</span><span>SQLite</span><span>Android Studio</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2023.07 – 2023.11</div>
+      <h3>次期POSシステム開発（設計）</h3>
+      <p class="desc">独立後最初の案件。ガソリンスタンド向け次期POSの設計を担当。前任者不在の中、散在した資料を集めて設計書を作成するところから対応。</p>
+      <div class="tech"><span>基本設計</span><span>ドキュメント整備</span></div>
+    </li>
+  </ul>
+
+  <div class="era reveal">
+    <h2>静岡移住期（2013 – 2023）</h2>
+    <p>車載分野で約8年。AUTOSARでの開発とプロセス改善を主導。</p>
+  </div>
+  <ul class="tl">
+    <li class="reveal">
+      <div class="period">2023.04 – 2023.06</div>
+      <h3>車載機器 画面表示ソフトウェア開発</h3>
+      <p class="desc">メーターUIの画面遷移・スイッチ操作を調停するライブラリの修正、仕様追加対応。他コーダー成果物のレビューも担当。</p>
+      <div class="tech"><span>C</span><span>Kanzi</span><span>GHS MULTI</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2015.07 – 2023.03</div>
+      <h3>車載機器 制御ソフトウェア開発（メーター）</h3>
+      <p class="desc">AUTOSAR Classic Platform 上での制御ソフト開発に約8年従事。チーム20名のマネジメント、客先折衝、協力会社管理、静的解析結果の判定までを担当。A-SPICE / ISO26262 準拠プロセスを経験し、製品ごとの振り返りと泥臭い作業のツール化を推進。</p>
+      <div class="tech"><span>C</span><span>AUTOSAR CP</span><span>MISRA C 2004/2012</span><span>CERT-C</span><span>QAC/HelixQAC/Polyspace</span><span>ISO26262</span><span>A-SPICE</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2020.07 – 2023.03（兼務）</div>
+      <h3>業務プロセス改善</h3>
+      <p class="desc">改善ワーキンググループを立ち上げ、Git / GitLab / Jenkins の導入・定着、改善用ツール群の開発・保守を推進。「提案」で終わらせず、社内文化を変えて浸透させるところまで実行。</p>
+      <div class="tech"><span>Git/GitLab</span><span>Jenkins</span><span>PowerShell</span><span>Perl</span><span>Python</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2014.12 – 2015.06</div>
+      <h3>車載機器 制御ソフトウェア開発</h3>
+      <p class="desc">割り当て機能の設計・製造・テスト（仕様変更対応）。独自OSと体系化された開発プロセスの知見を獲得。</p>
+      <div class="tech"><span>C</span><span>独自OS</span><span>MISRA C 2004</span><span>QAC</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2013.12 – 2014.06</div>
+      <h3>基板作成機器（マウンター）の制御アプリ開発</h3>
+      <p class="desc">静岡移住後最初の案件。機器制御ソフトと機器管理アプリの仕様変更対応。</p>
+      <div class="tech"><span>C</span><span>WindowsCE</span><span>VisualC++</span></div>
+    </li>
+  </ul>
+
+  <div class="era reveal">
+    <h2>カーナビ期（2003 – 2013）</h2>
+    <p>10年にわたり大規模カーナビ開発の中核を担当。海外向け機能・オフショア・大規模マネジメントを経験。</p>
+  </div>
+  <ul class="tl">
+    <li class="reveal">
+      <div class="period">2012.01 – 2013.11</div>
+      <h3>M社 カーナビゲーションシステム</h3>
+      <p class="desc">欧州・北米・国内向け交通情報機能の設計とマネジメント。開発ベース環境の構築、客先・各機能担当との仕様折衝、英語仕様書からの設計書作成（客先常駐）。</p>
+      <div class="tech"><span>C</span><span>Windows Automotive</span><span>英語仕様書</span><span>チーム8名</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2008.10 – 2011.12</div>
+      <h3>M社 カーナビゲーションシステム</h3>
+      <p class="desc">海外向けカーナビのGUI設計・製造とマネジメント。客先との仕様折衝、英語仕様書からの設計書作成。</p>
+      <div class="tech"><span>C</span><span>Windows Automotive</span><span>GUI設計</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2006.04 – 2008.10</div>
+      <h3>M社 カーナビ 全体リファクタリング</h3>
+      <p class="desc">音楽再生・録音まわり全般を担当し、機能別チーム（開発23名規模）で全体リファクタリングを推進。オフショア開発を初経験し、言語・文化の壁を越えたマネジメントを実践。</p>
+      <div class="tech"><span>C</span><span>WindowsCE</span><span>オフショア管理</span><span>チーム20名</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2003.01 – 2006.04</div>
+      <h3>P社 カーナビゲーションシステム</h3>
+      <p class="desc">交通情報の編集・表示、衛星データ配信情報表示の設計・製造、AV・DTV機能の詳細設計。初の大規模チーム（10名）マネジメントを経験。</p>
+      <div class="tech"><span>C</span><span>WindowsCE</span><span>チームマネジメント</span></div>
+    </li>
+  </ul>
+
+  <div class="era reveal">
+    <h2>キャリア初期（1994 – 2003）</h2>
+    <p>UNIXワークステーションと組み込みの時代。公共系・インフラ系システムで基礎を築く。</p>
+  </div>
+  <ul class="tl">
+    <li class="reveal">
+      <div class="period">2002.07 – 2003.01</div>
+      <h3>精算機・券売機 上位伝送アプリ開発</h3>
+      <p class="desc">売上情報の収集・編集と上位サーバへの転送。パケットキャプチャと格闘しながらTCP/IPの知識を獲得。</p>
+      <div class="tech"><span>C</span><span>VxWorks</span><span>TCP/IP</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2002.04 – 2002.07</div>
+      <h3>情報提供システムのWeb化</h3>
+      <p class="desc">データ取得・編集とWebブラウザへの表示制御。Java / JavaScript / HTML / PL/SQL を初経験。</p>
+      <div class="tech"><span>Java</span><span>JavaScript</span><span>HTML</span><span>PL/SQL</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2002.01 – 2002.04</div>
+      <h3>プリンタ用LANボード開発</h3>
+      <p class="desc">プリンタ拡張ボードの設定画面（組み込みHTML）の設計・実装。</p>
+      <div class="tech"><span>C</span><span>HTML</span><span>VxWorks</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2001.08 – 2001.12</div>
+      <h3>定期券発売機 集中管理システム</h3>
+      <p class="desc">売上情報の収集・編集（電文）と上位サーバへの転送制御の設計・実装、およびマネジメント。</p>
+      <div class="tech"><span>C</span><span>VxWorks</span><span>TCP/IP</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">2001.04 – 2001.08</div>
+      <h3>設備監視システム</h3>
+      <p class="desc">DBからのデータ取得・編集処理の設計・実装。DBを使った初めての案件。</p>
+      <div class="tech"><span>C</span><span>PL/SQL</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1999.07 – 2001.04</div>
+      <h3>ミサイル迎撃システム</h3>
+      <p class="desc">画面表示を指示する制御処理の設計・実装。防衛関連の大規模システム（全体200名）に参画。</p>
+      <div class="tech"><span>C</span><span>VxWorks</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1998.03 – 1999.07</div>
+      <h3>ATM交換機 監視制御</h3>
+      <p class="desc">回線切替の制御処理の設計・実装。組み込み開発を初めて経験した案件。</p>
+      <div class="tech"><span>C</span><span>VxWorks</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1997.03 – 1997.10</div>
+      <h3>防災一斉放送システム</h3>
+      <p class="desc">送信情報の抽出・集約、防災情報の一斉配信・一斉放送指示処理の設計・実装。</p>
+      <div class="tech"><span>C</span><span>HP-UX</span><span>SL-GMS</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1996.03 – 1997.03</div>
+      <h3>高速道路 遠方監視制御システム</h3>
+      <p class="desc">高速道路設置機器の情報集約・編集、画面表示・帳票用データ編集の設計・実装。大規模システムの現地調整も経験。</p>
+      <div class="tech"><span>C</span><span>HP-UX</span><span>SL-GMS</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1995.03 – 1996.03</div>
+      <h3>パトカーロケーションシステム</h3>
+      <p class="desc">パトカーから送信される位置情報の集約・編集・表示処理の設計・実装。GPS活用システムがまだ珍しかった時代の先進案件。</p>
+      <div class="tech"><span>C</span><span>HP-UX</span><span>GPS</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1994.09 – 1995.03</div>
+      <h3>擬似金庫システム</h3>
+      <p class="desc">金庫の入出庫GUI作成。手探りでC言語を習得しながらの開発。</p>
+      <div class="tech"><span>C</span><span>HP-UX</span></div>
+    </li>
+    <li class="reveal">
+      <div class="period">1994.05 – 1994.09</div>
+      <h3>水道局向け 中央監視制御設備改良</h3>
+      <p class="desc">キャリアの原点。遠隔監視制御システムのGUI作成。C言語が認知され始めて間もない頃、手探りで開発に挑んだ最初の案件。</p>
+      <div class="tech"><span>C</span><span>HP-UX</span><span>SL-GMS</span></div>
+    </li>
+  </ul>
+
+  <div class="backline">
+    <a class="btn-outline" href="index.html">← トップページへ戻る</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand-f"><img width="20" height="22" style="object-fit:contain;" alt="" src="assets/paw-small.png"> ねこのてエンジニア</div>
+    <p>組み込みソフトウェア開発 × 生成AI活用｜静岡県・リモート対応</p>
+    <p style="margin-top:14px; opacity:.7;">© 2026 Nekonote Engineer. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
