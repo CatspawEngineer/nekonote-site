@@ -64,8 +64,10 @@
   .btn-outline { display: inline-block; border: 2px solid var(--accent); color: var(--accent-deep); font-weight: 700; text-decoration: none; padding: 12px 30px; border-radius: 999px; }
   .btn-outline:hover { background: var(--accent); color: #fff; }
 
-  footer { background: var(--navy); color: #cfd6e0; padding: 40px 0; text-align: center; font-size: .85rem; }
-  footer .brand-f { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; color: #fff; font-size: 1rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  footer { background: var(--paper-warm); color: var(--ink-soft); padding: 48px 0 40px; text-align: center; font-size: .85rem; border-top: 1px solid var(--line); }
+  footer .brand-f { margin-bottom: 14px; }
+  footer .brand-f img { height: 84px; width: auto; display: inline-block; }
+  @media (max-width: 640px) { footer .brand-f img { height: 64px; } }
 </style>
 </head>
 <body>
@@ -275,7 +277,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="assets/logo-white.png" alt="ねこのてエンジニア" style="height:28px;width:auto;display:inline-block;"></div>
+    <div class="brand-f"><img src="assets/logo-footer.png" alt="ねこのてエンジニア"></div>
     <p>組み込みソフトウェア開発 × 生成AI活用｜静岡県・リモート対応</p>
     <p style="margin-top:14px; opacity:.7;">© 2026 Nekonote Engineer. All rights reserved.</p>
   </div>
