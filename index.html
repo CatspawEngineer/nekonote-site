@@ -27,6 +27,7 @@
     --accent-deep: #a4522f;
     --navy: #2e3a4e;
     --line: #e5dfd3;
+    --line-strong: #9a9082; /* 入力欄の枠。紙との比 3:1 */
     --accent-ink: #8a4224;  /* ボタンの hover */
     --on-accent: #fff;
     --surface: #fff;
@@ -91,10 +92,10 @@
     width: min(340px, 34vw); height: auto; opacity: .92; z-index: 0; pointer-events: none;
     filter: drop-shadow(0 6px 18px rgba(91,43,29,.12));
   }
-  @media (max-width: 860px) { .hero-paw { opacity: .18; width: 300px; right: -80px; } }
+  @media (max-width: 860px) { .hero-paw { opacity: .18; width: 300px; right: -80px; top: 0; transform: translateY(-18%) rotate(8deg); } }
   .hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; line-height: 1.35; margin-bottom: 22px; }
   .hero h1 .em { color: var(--accent-deep); }
-  .hero h1 .nw { white-space: nowrap; }
+  .nw { white-space: nowrap; }
   @media (max-width: 360px) { .hero h1 { font-size: 1.65rem; } }
   @media (max-width: 480px) { .hero .actions > a { width: 100%; text-align: center; } }
   .hero .lead { color: var(--ink-soft); max-width: 640px; margin-bottom: 30px; }
@@ -157,6 +158,7 @@
   .tech { display: flex; flex-wrap: wrap; gap: 8px; }
   .tech span { background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; padding: 2px 12px; border-radius: 999px; }
   .works-note { color: var(--ink-soft); font-size: .9rem; margin-top: 20px; }
+  .works-note + .works-note { margin-top: 8px; }
 
   /* skills */
   table.skills { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
@@ -177,6 +179,10 @@
   .cond dd { color: var(--ink-soft); }
 
   /* contact */
+  #contact { position: relative; overflow: hidden; }
+  #contact .wrap { position: relative; z-index: 1; }
+  #contact .sec-head { text-align: center; }
+  .contact-paw { position: absolute; left: -40px; bottom: -30px; width: min(280px, 36vw); height: auto; opacity: .18; transform: scaleX(-1) rotate(10deg); pointer-events: none; z-index: 0; }
   .contact-box { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 40px; max-width: 640px; margin: 0 auto; }
   .contact-box p.note { font-size: .9rem; color: var(--ink-soft); margin-bottom: 14px; }
   .contact-box .flow-head { font-size: .88rem; font-weight: 700; margin-bottom: 4px; }
@@ -186,7 +192,7 @@
   .field label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: 6px; }
   .field label .req { color: var(--accent-deep); font-size: .8rem; margin-left: 6px; }
   .field input, .field textarea, .field select {
-    width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
+    width: 100%; padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: 10px;
     font: inherit; font-size: 1rem; background: var(--paper);
   }
   .field.hp { display: none; }
@@ -202,9 +208,8 @@
   .contact-box .sent { padding: 12px 0; scroll-margin-top: 80px; }
   .contact-box .sent h3 { font-size: 1.15rem; margin-bottom: 10px; }
   .contact-box .sent p { color: var(--ink-soft); font-size: .95rem; }
-  .contact-box .sent:target { display: block; }
-  .contact-box .policy { font-size: .85rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
-  .contact-box .policy + .policy { margin-top: 8px; }
+  html:not(.js) .contact-box .sent:target { display: block; }
+  .contact-box .policy { font-size: .85rem; color: var(--ink-soft); margin-top: 18px; }
 
 
   /* stats band */
@@ -274,7 +279,7 @@
   <div class="wrap">
     <h1>開発現場の<span class="nw"><span class="em">「ねこのて」</span>になる。</span><br>組み込み30年 × <span class="nw">生成AI活用。</span></h1>
     <p class="lead">要件定義から保守運用まで、ソフトウェア開発の全工程に対応。車載・POS・決済端末など大規模プロジェクトで培った30年の経験と、ローカルLLMを中心とした生成AIの実務活用で、人手の足りない現場に確かな手を差し出します。</p>
-    <div class="status">長期案件に参画中。スポット相談・小規模案件は並行して受付中（2営業日以内に返信）</div>
+    <div class="status">スポット相談・小規模案件を受付中（2営業日以内に返信）。長期案件には参画中</div>
     <div class="actions">
       <a class="btn-main" href="#contact">お問い合わせフォームへ</a>
       <a class="btn-sub" href="#works">実績を見る →</a>
@@ -284,7 +289,7 @@
       <div class="stat"><div class="num">30<small>年</small></div><div class="label">ソフトウェア開発歴</div></div>
       <div class="stat"><div class="num">25<small>件以上</small></div><div class="label">参画プロジェクト</div></div>
       <div class="stat"><div class="num">20<small>名</small></div><div class="label">最大マネジメント規模</div></div>
-      <div class="stat"><div class="num">2<small>台</small></div><div class="label">ローカルLLM機を自宅で運用</div></div>
+      <div class="stat"><div class="num">2<small>台</small></div><div class="label">ローカルLLM機を<span class="nw">自宅で運用</span></div></div>
     </div>
   </div>
 </section>
@@ -343,7 +348,6 @@
         <p>猫の手も借りたい——そんな開発現場の「あと一人」になれるエンジニアでありたい、という思いを込めています。</p>
         <p>ウォーターフォール開発を主として、いくつもの大規模プロジェクトで多くの人と関わりながら仕事をしてきました。プログラミングだけでなく、上流工程や要件調整などの折衝、チームマネジメントも得意です。</p>
         <p>スキルだけでなく、「人」として必要とされる存在であることを大切にしています。</p>
-        <p>顧客名・成果物・本名はこのサイトには載せていません。NDAを守る仕事だからです。お問い合わせ後の面談で、経歴書とあわせて開示します。</p>
       </div>
     </div>
   </div>
@@ -392,11 +396,27 @@
     </div>
 
     <p class="works-note">このほか、鉄道券売機・防災一斉放送・高速道路の監視制御など、公共インフラ系システムの開発実績が多数あります（1994年〜）。</p>
+    <p class="works-note">顧客名・成果物・本名はこのサイトには載せていません。NDAを守る仕事だからです。お問い合わせ後の面談で、経歴書とあわせて開示します。</p>
     <a class="btn-outline" href="history.html">30年分の全業務履歴を見る →</a>
   </div>
 </section>
 
-<section id="skills">
+<section id="links">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>技術記事</h2>
+    </div>
+    <p class="articles-lead">ローカルLLMの運用や、生成AIを組み込み開発の現場で使った記録をZennに書いています。うまくいかなかった話も残しています。</p>
+    <ul class="articles">
+      <li><a href="https://zenn.dev/catspawengineer/articles/b9f055934a75f2" target="_blank" rel="noopener">ローカルLLM環境としてThinkStation PGX（DGX Spark OEM）を選んだ話</a></li>
+      <li><a href="https://zenn.dev/catspawengineer/articles/a7f4efbf9d8e5c" target="_blank" rel="noopener">ローカルLLMにC言語レガシープロジェクトの循環依存リファクタリング計画書を書かせた</a></li>
+      <li><a href="https://zenn.dev/catspawengineer/articles/447b6b97c14579" target="_blank" rel="noopener">レガシープロジェクトに単体テストフレームワークを導入し、生成AIを活用したが失敗した話</a></li>
+    </ul>
+    <a class="articles-more" href="https://zenn.dev/catspawengineer" target="_blank" rel="noopener">Zennの記事一覧を見る →</a>
+  </div>
+</section>
+
+<section id="skills" class="alt">
   <div class="wrap">
     <div class="sec-head">
       <h2>スキル一覧</h2>
@@ -439,24 +459,14 @@
   </div>
 </section>
 
-<section id="links" class="alt">
+
+<section id="contact" class="alt">
+  <picture>
+    <source type="image/webp" srcset="assets/paw.webp">
+    <img class="contact-paw" alt="" aria-hidden="true" src="assets/paw.png" width="468" height="496" loading="lazy">
+  </picture>
   <div class="wrap">
     <div class="sec-head">
-      <h2>技術記事</h2>
-    </div>
-    <p class="articles-lead">ローカルLLMの運用や、生成AIを組み込み開発の現場で使った記録をZennに書いています。うまくいかなかった話も残しています。</p>
-    <ul class="articles">
-      <li><a href="https://zenn.dev/catspawengineer/articles/b9f055934a75f2" target="_blank" rel="noopener">ローカルLLM環境としてThinkStation PGX（DGX Spark OEM）を選んだ話</a></li>
-      <li><a href="https://zenn.dev/catspawengineer/articles/a7f4efbf9d8e5c" target="_blank" rel="noopener">ローカルLLMにC言語レガシープロジェクトの循環依存リファクタリング計画書を書かせた</a></li>
-      <li><a href="https://zenn.dev/catspawengineer/articles/447b6b97c14579" target="_blank" rel="noopener">レガシープロジェクトに単体テストフレームワークを導入し、生成AIを活用したが失敗した話</a></li>
-    </ul>
-    <a class="articles-more" href="https://zenn.dev/catspawengineer" target="_blank" rel="noopener">Zennの記事一覧を見る →</a>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="sec-head" style="text-align:center;">
       <h2>お問い合わせ</h2>
     </div>
     <dl class="cond">
@@ -466,11 +476,12 @@
     </dl>
     <div class="contact-box">
       <p class="note">困っていることややりたいことを、わかる範囲でお書きください。生成AI導入のご相談だけでも歓迎です。</p>
+      <p class="note">営業・勧誘目的のご連絡（広告掲載・集客支援・SEO・人材紹介など）はお断りしています。返信はいたしません。</p>
       <p class="flow-head">お問い合わせ後の流れ</p>
       <ol class="flow">
         <li>通常2営業日以内に返信します</li>
         <li>オンラインで面談します</li>
-        <li>本名と経歴書を開示したうえで、契約に進みます</li>
+        <li>本名と経歴書を開示したうえで、契約に進みます（本名はNDA案件のため、サイトには載せていません）</li>
       </ol>
       <form action="https://formspree.io/f/mrenavoy" method="POST">
         <input type="hidden" name="_subject" value="【catspawengineer.jp】お問い合わせ">
@@ -511,9 +522,8 @@
           <textarea id="f-message" name="困っていること・やりたいこと" rows="6" required maxlength="4000" placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
         </div>
         <button type="submit" id="f-submit">相談内容を送る</button>
-        <p class="err" id="f-error" role="alert" hidden>送信できませんでした。通信状況を確認して、もう一度お試しください。入力内容はそのまま残っています。</p>
+        <p class="err" id="f-error" role="alert" tabindex="-1" hidden>送信できませんでした。通信状況を確認して、もう一度お試しください。入力内容はそのまま残っています。</p>
         <p class="policy">いただいた情報はお問い合わせへの対応にのみ使い、第三者には渡しません。</p>
-        <p class="policy">※広告掲載・集客支援・SEO・人材紹介などを含む、営業・勧誘目的のご連絡は固くお断りします。これらへの返信は一切いたしません。</p>
       </form>
       <div class="sent" id="sent" role="status" tabindex="-1" hidden>
         <h3>送信しました</h3>
@@ -541,19 +551,28 @@
   var btn = document.getElementById('f-submit');
   var err = document.getElementById('f-error');
   var sent = document.getElementById('sent');
-  if (form && window.fetch) form.addEventListener('submit', function(ev){
-    ev.preventDefault();
-    if (btn.disabled) return;
-    btn.disabled = true; btn.textContent = '送信中…'; err.hidden = true;
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
-      .then(function(r){
-        if (!r.ok) throw new Error(r.status);
-        var to = document.getElementById('sent-to');
-        if (to && form.elements.email.value) to.textContent = form.elements.email.value;
-        form.hidden = true; sent.hidden = false; sent.focus();
-      })
-      .catch(function(){ err.hidden = false; btn.disabled = false; btn.textContent = '相談内容を送る'; });
-  });
+  var MSG_NETWORK = err ? err.textContent : '';
+  var MSG_REJECTED = '送信内容を受け付けられませんでした。メールアドレスをご確認のうえ、もう一度お試しください。入力内容はそのまま残っています。';
+  if (form && window.fetch) {
+    document.documentElement.classList.add('js'); // JS 送信のときは #sent の :target 表示を使わない
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if (btn.disabled) return;
+      btn.disabled = true; btn.textContent = '送信中…'; err.hidden = true;
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function(r){
+          if (!r.ok) throw r.status;
+          var to = document.getElementById('sent-to');
+          if (to && form.elements.email.value) to.textContent = form.elements.email.value;
+          form.hidden = true; sent.hidden = false; sent.focus();
+        })
+        .catch(function(status){
+          err.textContent = (status >= 400 && status < 500) ? MSG_REJECTED : MSG_NETWORK;
+          err.hidden = false; err.focus();
+          btn.disabled = false; btn.textContent = '相談内容を送る';
+        });
+    });
+  }
 })();
 </script>
 </body>
