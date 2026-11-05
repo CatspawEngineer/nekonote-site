@@ -122,8 +122,7 @@
 
   /* services */
   .cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
-  @media (min-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } .cards .card:last-child { grid-column: 1 / -1; } }
-  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } .cards .card:last-child { grid-column: auto; } }
+  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 30px 26px;
     box-shadow: 0 2px 10px rgba(43,43,51,.04);
@@ -225,7 +224,7 @@
 
   /* 技術記事 */
   .articles-lead { color: var(--ink-soft); max-width: 640px; margin-bottom: 8px; }
-  .articles { list-style: none; max-width: 760px; }
+  .articles { list-style: none; }
   .articles li { padding: 16px 0; border-bottom: 1px solid var(--line); }
   .articles a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line); }
   .articles a:hover { text-decoration-color: var(--accent-deep); color: var(--accent-deep); }
@@ -260,8 +259,8 @@
   </div>
 </header>
 <nav class="bar" aria-label="ページ内の移動">
-  <a href="#works">実績</a>
   <a href="#about">経歴</a>
+  <a href="#works">実績</a>
   <a href="#skills">スキル</a>
   <a class="primary" href="#contact">お問い合わせ</a>
 </nav>
