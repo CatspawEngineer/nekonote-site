@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ねこのてエンジニア｜組み込みソフトウェア開発30年 × 生成AI活用</title>
 <meta name="description" content="組み込みソフトウェア開発30年のフリーランスエンジニア。要件定義から保守まで全工程対応。車載(AUTOSAR/ISO26262)・POS・決済端末の開発経験と、ローカルLLMを中心とした生成AI活用支援。静岡県拠点・リモート対応。">
 <link rel="icon" type="image/png" href="assets/paw-small.png">
@@ -16,7 +16,7 @@
 <meta name="twitter:site" content="@catspawengineer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #2b2b33;
@@ -27,12 +27,20 @@
     --accent-deep: #a4522f;
     --navy: #2e3a4e;
     --line: #e5dfd3;
-    --ok: #3e7d5a;
+    --accent-ink: #8a4224;  /* ボタンの hover */
+    --on-accent: #fff;
+    --surface: #fff;
+    --ok: #35704f;
+    --ok-bg: #eef4ef;
+    --ok-line: #d4e2d8;
+    --err-bg: #fbe9e4;
+    --err-ink: #8a3a1f;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body {
     font-family: "Noto Sans JP", sans-serif;
+    overflow-wrap: break-word;
     color: var(--ink);
     background: var(--paper);
     line-height: 1.85;
@@ -49,17 +57,28 @@
     border-bottom: 1px solid var(--line);
   }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-  .brand .paw { font-size: 1.2rem; }
+  .brand { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 7px 0; }
+  .brand img { height: 30px; width: auto; display: block; }
   .nav ul { display: flex; gap: 22px; list-style: none; }
   .nav ul a { text-decoration: none; color: var(--ink-soft); font-size: .9rem; font-weight: 500; }
   .nav ul a:hover { color: var(--accent-deep); }
   .nav .cta {
-    background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 999px;
+    background: var(--accent-deep); color: var(--on-accent); padding: 8px 18px; border-radius: 999px;
     font-weight: 700; text-decoration: none; font-size: .9rem;
   }
-  .nav .cta:hover { background: var(--accent-deep); }
-  @media (max-width: 720px) { .nav ul { display: none; } }
+  .nav .cta:hover { background: var(--accent-ink); }
+  .bar { display: none; }
+  @media (max-width: 720px) {
+    .nav ul, .nav .cta { display: none; }
+    /* 片手で届く位置に主要な移動先: 画面下固定のバー */
+    .bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; gap: 6px;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
+    .bar a { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 46px; border-radius: 999px;
+      text-decoration: none; font-weight: 700; font-size: .92rem; color: var(--ink); }
+    .bar a:active { background: var(--paper-warm); }
+    .bar a.primary { flex: 1.7; background: var(--accent-deep); color: var(--on-accent); }
+    body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); }
+  }
 
   /* hero */
   .hero { padding: 88px 0 72px; position: relative; overflow: hidden; background:
@@ -69,46 +88,49 @@
   .hero .wrap { position: relative; z-index: 1; }
   .hero-paw {
     position: absolute; right: -30px; top: 50%; transform: translateY(-52%) rotate(8deg);
-    width: min(340px, 34vw); opacity: .92; z-index: 0; pointer-events: none;
+    width: min(340px, 34vw); height: auto; opacity: .92; z-index: 0; pointer-events: none;
     filter: drop-shadow(0 6px 18px rgba(91,43,29,.12));
   }
   @media (max-width: 860px) { .hero-paw { opacity: .18; width: 300px; right: -80px; } }
-  .hero .kicker { color: var(--accent-deep); font-weight: 700; letter-spacing: .12em; font-size: .85rem; margin-bottom: 14px; }
   .hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; line-height: 1.35; margin-bottom: 22px; }
-  .hero h1 .em { color: var(--accent); }
+  .hero h1 .em { color: var(--accent-deep); }
+  .hero h1 .nw { white-space: nowrap; }
+  @media (max-width: 360px) { .hero h1 { font-size: 1.65rem; } }
+  @media (max-width: 480px) { .hero .actions > a { width: 100%; text-align: center; } }
   .hero .lead { color: var(--ink-soft); max-width: 640px; margin-bottom: 30px; }
   .hero .status {
     display: inline-flex; align-items: center; gap: 8px;
-    background: #eef4ef; border: 1px solid #d4e2d8; color: var(--ok);
+    background: var(--ok-bg); border: 1px solid var(--ok-line); color: var(--ok);
     padding: 6px 16px; border-radius: 999px; font-size: .85rem; font-weight: 500; margin-bottom: 30px;
   }
   .hero .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
   .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-main {
-    background: var(--accent); color: #fff; text-decoration: none; font-weight: 700;
-    padding: 14px 34px; border-radius: 999px; box-shadow: 0 4px 14px rgba(201,111,74,.3);
+    background: var(--accent-deep); color: var(--on-accent); text-decoration: none; font-weight: 700;
+    padding: 14px 34px; border-radius: 999px; box-shadow: 0 4px 14px rgba(164,82,47,.28);
   }
-  .btn-main:hover { background: var(--accent-deep); }
+  .btn-main:hover { background: var(--accent-ink); }
   .btn-sub { color: var(--ink-soft); text-decoration: none; font-weight: 500; padding: 14px 10px; }
   .btn-sub:hover { color: var(--accent-deep); }
 
   /* sections */
-  section { padding: 76px 0; }
+  section { padding: 76px 0; scroll-margin-top: 61px; }
   section.alt { background: var(--paper-warm); }
-  .sec-head { margin-bottom: 44px; }
-  .sec-head .en { color: var(--accent); font-weight: 700; letter-spacing: .15em; font-size: .8rem; text-transform: uppercase; }
-  .sec-head h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 900; margin-top: 6px; }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 900; }
+  .sec-head h2::before { content: ""; display: inline-block; width: .62em; height: .66em; margin-right: .3em; vertical-align: -.04em; background: url("assets/paw-small.png") no-repeat center/contain; }
 
   /* services */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } .cards .card:last-child { grid-column: 1 / -1; } }
+  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } .cards .card:last-child { grid-column: auto; } }
   .card {
-    background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 30px 26px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 30px 26px;
     box-shadow: 0 2px 10px rgba(43,43,51,.04);
   }
-  .card .icon { font-size: 1.7rem; margin-bottom: 14px; display: block; }
   .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
   .card p { font-size: .92rem; color: var(--ink-soft); }
-  .card .tag { display: inline-block; margin-top: 14px; background: var(--paper-warm); color: var(--accent-deep); font-size: .78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+  .card .tag { display: inline-block; margin-top: 14px; background: var(--paper-warm); color: var(--accent-deep); font-size: .82rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
 
   /* about */
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
@@ -122,23 +144,23 @@
   }
   .timeline .year { font-weight: 700; color: var(--accent-deep); font-size: .9rem; }
   .timeline p { font-size: .92rem; color: var(--ink-soft); }
-  .about-msg { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+  .about-msg { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
   .about-msg h3 { font-size: 1.05rem; margin-bottom: 12px; }
   .about-msg p { font-size: .95rem; color: var(--ink-soft); margin-bottom: 12px; }
   .about-msg p:last-child { margin-bottom: 0; }
 
   /* works */
-  .work { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; margin-bottom: 18px; }
+  .work { padding: 24px 0; border-bottom: 1px solid var(--line); }
   .work .head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
   .work h3 { font-size: 1.05rem; font-weight: 700; }
   .work .period { color: var(--accent-deep); font-size: .82rem; font-weight: 700; white-space: nowrap; }
   .work p { font-size: .92rem; color: var(--ink-soft); margin-bottom: 10px; }
   .work .tech { display: flex; flex-wrap: wrap; gap: 8px; }
-  .work .tech span { background: var(--paper-warm); color: var(--ink-soft); font-size: .76rem; padding: 3px 12px; border-radius: 999px; }
+  .work .tech span { background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft); font-size: .82rem; padding: 2px 12px; border-radius: 999px; }
   .works-note { color: var(--ink-soft); font-size: .9rem; margin-top: 20px; }
 
   /* skills */
-  table.skills { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
+  table.skills { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 16px; overflow: hidden; border: 1px solid var(--line); }
   table.skills th, table.skills td { padding: 15px 20px; text-align: left; font-size: .92rem; border-bottom: 1px solid var(--line); vertical-align: top; }
   table.skills tr:last-child th, table.skills tr:last-child td { border-bottom: none; }
   table.skills th { width: 172px; background: var(--paper-warm); color: var(--accent-deep); font-weight: 700; white-space: nowrap; }
@@ -148,61 +170,65 @@
     table.skills td { padding: 12px 12px; font-size: .85rem; }
   }
 
-  /* conditions */
-  .cond { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
-  .cond .card p { margin-top: 4px; }
+  /* conditions (問い合わせの上の 3 行) */
+  .cond { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; max-width: 640px; margin: 0 auto 30px; font-size: .95rem; }
+  .cond dt { font-weight: 700; color: var(--accent-deep); white-space: nowrap; }
+  .cond dd { color: var(--ink-soft); }
 
   /* contact */
-  .contact-box { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; max-width: 640px; margin: 0 auto; }
+  .contact-box { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 40px; max-width: 640px; margin: 0 auto; }
   .contact-box p.note { font-size: .9rem; color: var(--ink-soft); margin-bottom: 26px; }
   .field { margin-bottom: 18px; }
   .field label { display: block; font-weight: 700; font-size: .88rem; margin-bottom: 6px; }
-  .field label .req { color: var(--accent); font-size: .75rem; margin-left: 6px; }
+  .field label .req { color: var(--accent-deep); font-size: .8rem; margin-left: 6px; }
   .field input, .field textarea, .field select {
     width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
-    font: inherit; font-size: .95rem; background: var(--paper);
+    font: inherit; font-size: 1rem; background: var(--paper);
   }
-  .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  .field.hp { display: none; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--accent-deep); border-color: transparent; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 3px; border-radius: 4px; }
   .contact-box button {
-    width: 100%; background: var(--accent); color: #fff; border: none; font: inherit; font-weight: 700;
+    width: 100%; background: var(--accent-deep); color: var(--on-accent); border: none; font: inherit; font-weight: 700;
     padding: 15px; border-radius: 999px; cursor: pointer; font-size: 1rem;
   }
-  .contact-box button:hover { background: var(--accent-deep); }
-  .contact-box .policy { font-size: .8rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
+  .contact-box button:hover { background: var(--accent-ink); }
+  .contact-box button:disabled { background: var(--ink-soft); cursor: progress; }
+  .contact-box .err { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--err-bg); color: var(--err-ink); font-size: .9rem; }
+  .contact-box .sent { padding: 12px 0; }
+  .contact-box .sent h3 { font-size: 1.15rem; margin-bottom: 10px; }
+  .contact-box .sent p { color: var(--ink-soft); font-size: .95rem; }
+  .contact-box .sent:target { display: block; }
+  .contact-box .policy { font-size: .85rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
 
 
   /* stats band */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 18px; margin-top: 54px; }
-  .stat { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 10px; text-align: center; }
-  .stat .num { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 2.1rem; color: var(--accent-deep); line-height: 1.2; }
+  .stats { display: flex; flex-wrap: wrap; gap: 14px 44px; margin-top: 48px; padding-top: 26px; border-top: 1px solid var(--line); }
+  .stat .num { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 1.9rem; color: var(--accent-deep); line-height: 1.2; }
   .stat .num small { font-size: 1rem; }
-  .stat .label { font-size: .82rem; color: var(--ink-soft); margin-top: 4px; }
+  .stat .label { font-size: .85rem; color: var(--ink-soft); margin-top: 2px; }
+  @media (max-width: 480px) { .stats { gap: 16px 16px; } .stat { flex: 1 1 calc(50% - 8px); } }
 
   /* personal / workspace */
   .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 26px; }
   @media (max-width: 640px) { .photo-grid { grid-template-columns: 1fr; } }
   .photo-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); display: block; }
-  .persona { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .persona { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 36px; }
+  .persona h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 6px; }
+  .persona p { font-size: .92rem; color: var(--ink-soft); }
 
-  /* links */
-  .link-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
-  .link-card { display: block; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; text-decoration: none; transition: transform .25s ease, box-shadow .25s ease; }
-  .link-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(43,43,51,.08); }
-  .link-card h3 { color: var(--ink); font-size: 1.02rem; margin-bottom: 6px; }
-  .link-card p { color: var(--ink-soft); font-size: .88rem; }
-  .link-card .arrow { color: var(--accent-deep); font-weight: 700; font-size: .85rem; margin-top: 10px; display: inline-block; }
+  /* 技術記事 */
+  .articles-lead { color: var(--ink-soft); max-width: 640px; margin-bottom: 8px; }
+  .articles { list-style: none; max-width: 760px; }
+  .articles li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .articles a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line); }
+  .articles a:hover { text-decoration-color: var(--accent-deep); color: var(--accent-deep); }
+  .articles-more { display: inline-block; margin-top: 10px; padding: 10px 0; font-weight: 700; color: var(--accent-deep); text-decoration: none; }
+  .articles-more:hover { text-decoration: underline; text-underline-offset: 4px; }
 
   /* history link button */
   .btn-outline { display: inline-block; margin-top: 26px; border: 2px solid var(--accent); color: var(--accent-deep); font-weight: 700; text-decoration: none; padding: 12px 30px; border-radius: 999px; }
-  .btn-outline:hover { background: var(--accent); color: #fff; }
-
-  /* paw accent on section heads */
-  .sec-head .en::before { content: ""; display: inline-block; width: 15px; height: 16px; margin-right: 7px; vertical-align: -2px; background: url("assets/paw-small.png") no-repeat center/contain; }
-
-  /* scroll reveal */
-  html.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
-  html.js .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { html.js .reveal { opacity: 1; transform: none; transition: none; } }
+  .btn-outline:hover { background: var(--accent-deep); color: var(--on-accent); }
 
   footer { background: var(--paper-warm); color: var(--ink-soft); padding: 48px 0 40px; text-align: center; font-size: .85rem; border-top: 1px solid var(--line); }
   footer .brand-f { margin-bottom: 14px; }
@@ -214,35 +240,46 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="assets/logo.png" alt="ねこのてエンジニア" style="height:30px;width:auto;display:block;"></a>
-    <ul>
-      <li><a href="#services">できること</a></li>
-      <li><a href="#about">経歴</a></li>
-      <li><a href="#works">実績</a></li>
-      <li><a href="#skills">スキル</a></li>
-      <li><a href="#personal">人となり</a></li>
-    </ul>
+    <a class="brand" href="#top"><img src="assets/logo.png" width="757" height="120" alt="ねこのてエンジニア"></a>
+    <nav aria-label="セクション">
+      <ul>
+        <li><a href="#services">できること</a></li>
+        <li><a href="#about">経歴</a></li>
+        <li><a href="#works">実績</a></li>
+        <li><a href="#skills">スキル</a></li>
+        <li><a href="#personal">人となり</a></li>
+      </ul>
+    </nav>
     <a class="cta" href="#contact">お問い合わせ</a>
   </div>
 </header>
+<nav class="bar" aria-label="ページ内の移動">
+  <a href="#works">実績</a>
+  <a href="#about">経歴</a>
+  <a href="#skills">スキル</a>
+  <a class="primary" href="#contact">お問い合わせ</a>
+</nav>
 
+<main>
 <section class="hero" id="top">
-  <img class="hero-paw" alt="" aria-hidden="true" src="assets/paw.png">
+  <picture>
+    <source type="image/webp" srcset="assets/paw.webp">
+    <img class="hero-paw" alt="" aria-hidden="true" src="assets/paw.png" width="468" height="496">
+  </picture>
   <div class="wrap">
-    <div class="kicker">FREELANCE EMBEDDED ENGINEER</div>
-    <h1>開発現場の<span class="em">「ねこのて」</span>になる。<br>組み込み30年 × 生成AI活用。</h1>
+    <h1>開発現場の<span class="nw"><span class="em">「ねこのて」</span>になる。</span><br>組み込み30年 × <span class="nw">生成AI活用。</span></h1>
     <p class="lead">要件定義から保守運用まで、ソフトウェア開発の全工程に対応。車載・POS・決済端末など大規模プロジェクトで培った30年の経験と、ローカルLLMを中心とした生成AIの実務活用で、人手の足りない現場に確かな手を差し出します。</p>
-    <div class="status">現在：長期案件参画中／スポット相談・小規模案件はご相談ください</div>
+    <div class="status">長期案件に参画中。スポット相談・小規模案件は並行して受付中（2営業日以内に返信）</div>
     <div class="actions">
       <a class="btn-main" href="#contact">お問い合わせフォームへ</a>
       <a class="btn-sub" href="#works">実績を見る →</a>
     </div>
 
-    <div class="stats reveal">
+    <div class="stats">
       <div class="stat"><div class="num">30<small>年</small></div><div class="label">ソフトウェア開発歴</div></div>
       <div class="stat"><div class="num">25<small>件+</small></div><div class="label">参画プロジェクト</div></div>
       <div class="stat"><div class="num">20<small>名</small></div><div class="label">最大マネジメント規模</div></div>
-      <div class="stat"><div class="num">全<small>工程</small></div><div class="label">要件定義〜保守運用</div></div>
+      <div class="stat"><div class="num">2<small>台</small></div><div class="label">ローカルLLM機を自宅で運用</div></div>
     </div>
   </div>
 </section>
@@ -250,27 +287,23 @@
 <section id="services" class="alt">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">Services</div>
       <h2>提供できること</h2>
     </div>
     <div class="cards">
-      <div class="card reveal">
-        <span class="icon">🔧</span>
+      <div class="card">
         <h3>組み込みソフトウェア開発</h3>
         <p>要件定義・設計・実装・評価・保守まで全工程に対応。車載（AUTOSAR Classic Platform / ISO26262 / A-SPICE / MISRA）、POSシステム、決済端末、公共インフラ系まで幅広い分野の開発経験があります。</p>
         <span class="tag">C / C++ / C# / VB.NET / Java</span>
       </div>
-      <div class="card reveal">
-        <span class="icon">📈</span>
-        <h3>開発プロセス改善・チーム支援</h3>
-        <p>Git / GitLab / Jenkins の導入、繰り返し作業のツール化、静的解析（QAC / Polyspace 等）の運用設計、レビュー体制の構築。改善ワーキンググループの立ち上げから現場への浸透まで実行した経験があります。チームマネジメント・客先折衝も対応可能です。</p>
-        <span class="tag">プロセス改善 / マネジメント</span>
-      </div>
-      <div class="card reveal">
-        <span class="icon">🤖</span>
+      <div class="card">
         <h3>生成AI活用支援</h3>
-        <p>Ollama / vLLM / llama.cpp / Open WebUI によるローカルLLM環境の構築と、Claude Code 等を使った開発・テストの効率化。<strong>機密性の高い組み込み開発の現場でも使える「ローカル完結」の生成AI導入</strong>を、実務での運用経験にもとづいて支援します。</p>
+        <p>Ollama / vLLM / llama.cpp / Open WebUIによるローカルLLM環境の構築と、Claude Code等を使った開発・テストの効率化。<strong>機密性の高い組み込み開発の現場でも使える「ローカル完結」の生成AI導入</strong>を、実務での運用経験にもとづいて支援します。</p>
         <span class="tag">ローカルLLM / 開発効率化</span>
+      </div>
+      <div class="card">
+        <h3>プロセス改善・チーム支援</h3>
+        <p>Git / GitLab / Jenkinsの導入、繰り返し作業のツール化、静的解析（QAC / Polyspace等）の運用設計、レビュー体制の構築。改善ワーキンググループの立ち上げから現場への浸透まで実行した経験があります。チームマネジメント・客先折衝も対応可能です。</p>
+        <span class="tag">プロセス改善 / マネジメント</span>
       </div>
     </div>
   </div>
@@ -279,7 +312,6 @@
 <section id="about">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">About</div>
       <h2>経歴</h2>
     </div>
     <div class="about-grid">
@@ -302,10 +334,11 @@
         </li>
       </ul>
       <div class="about-msg">
-        <h3>🐾 「ねこのて」という屋号について</h3>
+        <h3>「ねこのて」という屋号について</h3>
         <p>猫の手も借りたい——そんな開発現場の「あと一人」になれるエンジニアでありたい、という思いを込めています。</p>
         <p>ウォーターフォール開発を主として、いくつもの大規模プロジェクトで多くの人と関わりながら仕事をしてきました。プログラミングだけでなく、上流工程や要件調整などの折衝、チームマネジメントも得意です。</p>
         <p>スキルだけでなく、「人」として必要とされる存在であることを大切にしています。</p>
+        <p>顧客名・成果物・本名はこのサイトには載せていません。NDAを守る仕事だからです。お問い合わせ後の面談で、経歴書とあわせて開示します。</p>
       </div>
     </div>
   </div>
@@ -314,41 +347,40 @@
 <section id="works" class="alt">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">Works</div>
       <h2>実績ハイライト</h2>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>POSシステム × 生成AIによる業務効率化</h3><span class="period">2026 –（参画中）</span></div>
       <p>次期POSシステムで使用するモジュールのテスト作業を、生成AIを活用して効率化・自動化するシステムの考案・開発を担当。ローカルLLMの構築・運用を含む、生成AIソリューションの提案も行っています。</p>
       <div class="tech"><span>C/C++/C#</span><span>組み込みWindows</span><span>Claude Code</span><span>ローカルLLM</span></div>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>決済端末開発</h3><span class="period">2025 – 2026</span></div>
-      <p>非接触ICクレジット機能の移植を担当（設計・製造・テスト）。Unity / CMock によるテスト自動化と、生成AIを活用した作業効率化の提案・実践を並行して実施。</p>
+      <p>非接触ICクレジット機能の移植を担当（設計・製造・テスト）。Unity / CMockによるテスト自動化と、生成AIを活用した作業効率化の提案・実践を並行して実施。</p>
       <div class="tech"><span>C</span><span>組み込みLinux</span><span>Unity/CMock</span><span>テスト自動化</span></div>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>次期POSシステム開発</h3><span class="period">2023 – 2025</span></div>
       <p>電子マネー決済まわりの設計・製造・テストを担当（全体100名規模）。携帯決済端末（Android/Java）のアプリ開発も担当し、前任者不在の状況から資料を集めて設計書を起こすところから対応。</p>
       <div class="tech"><span>VB.NET</span><span>SQL Server</span><span>Java / Android</span><span>PowerShell</span></div>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>車載メーター制御ソフトウェア開発</h3><span class="period">2015 – 2023</span></div>
-      <p>AUTOSAR Classic Platform 上での制御ソフト開発に約8年従事。チーム20名のマネジメント、客先との仕様折衝、協力会社管理、静的解析結果の判定までを担当。A-SPICE / ISO26262 準拠の開発プロセスを経験。</p>
+      <p>AUTOSAR Classic Platform上での制御ソフト開発に約8年従事。チーム20名のマネジメント、客先との仕様折衝、協力会社管理、静的解析結果の判定までを担当。A-SPICE / ISO26262準拠の開発プロセスを経験。</p>
       <div class="tech"><span>C</span><span>AUTOSAR CP</span><span>MISRA C</span><span>ISO26262</span><span>A-SPICE</span></div>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>開発プロセス改善</h3><span class="period">2020 – 2023</span></div>
-      <p>改善ワーキンググループを立ち上げ、Git / GitLab / Jenkins の導入と定着、繰り返し作業のツール化（PowerShell / Python / Perl）を推進。「提案して終わり」ではなく、開発チームに受け入れられ浸透するまでを実行。</p>
+      <p>改善ワーキンググループを立ち上げ、Git / GitLab / Jenkinsの導入と定着、繰り返し作業のツール化（PowerShell / Python / Perl）を推進。「提案して終わり」ではなく、開発チームに受け入れられ浸透するまでを実行。</p>
       <div class="tech"><span>Git / GitLab</span><span>Jenkins</span><span>Python</span><span>PowerShell</span></div>
     </div>
 
-    <div class="work reveal">
+    <div class="work">
       <div class="head"><h3>カーナビゲーションシステム開発</h3><span class="period">2003 – 2013</span></div>
       <p>欧州・北米・国内向けの交通情報機能やGUIの設計・製造、開発ベース環境の構築を担当。英語仕様書からの設計書作成、オフショア開発の管理、客先常駐での仕様折衝など、大規模開発（全体100〜200名）の中核を経験。</p>
       <div class="tech"><span>C</span><span>Windows Automotive</span><span>英語仕様書</span><span>オフショア管理</span></div>
@@ -362,15 +394,14 @@
 <section id="skills">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">Skills</div>
       <h2>スキル一覧</h2>
     </div>
-    <table class="skills reveal">
+    <table class="skills">
       <tr><th>言語</th><td>C（最長・最得意）/ C++ / C# / VB.NET / Java / PowerShell / Python / Perl / SQL</td></tr>
+      <tr><th>生成AI</th><td>Claude Code / Ollama / vLLM / llama.cpp / Open WebUI（ThinkStation PGX（NVIDIA DGX Spark OEM）×2を運用中）</td></tr>
       <tr><th>プラットフォーム</th><td>AUTOSAR Classic Platform / VxWorks / 組み込みWindows（CE・Automotive・Windows10）/ 組み込みLinux / Android</td></tr>
       <tr><th>規格・プロセス</th><td>MISRA C 2004・2012 / CERT-C / Automotive SPICE V3.1 / ISO26262 / ISO9001</td></tr>
       <tr><th>ツール</th><td>GHS MULTI / Visual Studio / Android Studio / WinAMS・CasePlayer2 / QAC・HelixQAC・Polyspace / Git・GitLab・GitHub / Jenkins / Windchill</td></tr>
-      <tr><th>生成AI</th><td>Claude Code / Ollama / vLLM / llama.cpp / Open WebUI（ThinkStation PGX（NVIDIA DGX Spark OEM）×2 を運用中）</td></tr>
       <tr><th>対応工程</th><td>要件定義〜基本設計〜詳細設計〜実装〜評価〜保守運用（全工程）/ チーム・プロジェクトマネジメント / 客先折衝 / 英語仕様書読解</td></tr>
     </table>
   </div>
@@ -380,26 +411,22 @@
 <section id="personal">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">Workspace &amp; Person</div>
       <h2>仕事場と人となり</h2>
     </div>
-    <div class="photo-grid reveal">
-      <img src="assets/desk2.jpg" alt="仕事場の様子：32インチ4Kデュアルモニタのデスク環境" loading="lazy">
-      <img src="assets/desk1.jpg" alt="仕事場の様子：開発用デスクトップ環境" loading="lazy">
+    <div class="photo-grid">
+      <img src="assets/desk3.jpg" width="1200" height="900" alt="仕事場：32インチ4Kモニタ2台とモバイルワークステーション。モニタ台の下にThinkStation PGXが2台" loading="lazy">
+      <img src="assets/pgx.jpg" width="1200" height="900" alt="モニタ台の下に並ぶThinkStation PGX（DGX Spark OEM）2台。天面に空冷機器を載せている" loading="lazy">
     </div>
     <div class="persona">
-      <div class="card reveal">
-        <span class="icon">🖥️</span>
+      <div>
         <h3>開発環境</h3>
-        <p>32インチ4Kモニタ×2＋モバイルワークステーションの構成。ローカルLLM運用のため ThinkStation PGX（NVIDIA DGX Spark OEM）を2台導入し、生成AIの検証・活用を日常的に行っています。</p>
+        <p>32インチ4Kモニタ×2＋モバイルワークステーションの構成。ローカルLLM運用のためThinkStation PGX（NVIDIA DGX Spark OEM）を2台導入し、生成AIの検証・活用を日常的に行っています。写真の黒い2台がそれで、天面の空冷機器は<a href="https://zenn.dev/catspawengineer/articles/979a45e6823509" target="_blank" rel="noopener">Zennの記事</a>で紹介しています。</p>
       </div>
-      <div class="card reveal">
-        <span class="icon">🚴</span>
+      <div>
         <h3>オフの過ごし方</h3>
         <p>ロードバイク、ジョギング、ウォーキングで体を動かすのが習慣。座り仕事の体調管理も、長く現場を支えるための大事な仕事のうちだと考えています。</p>
       </div>
-      <div class="card reveal">
-        <span class="icon">🐈</span>
+      <div>
         <h3>猫3匹と暮らしています</h3>
         <p>屋号「ねこのて」の由来でもある猫たちと暮らしています。オンラインMTGに乱入してくることがあります。ご容赦ください。</p>
       </div>
@@ -410,86 +437,101 @@
 <section id="links" class="alt">
   <div class="wrap">
     <div class="sec-head">
-      <div class="en">Links</div>
-      <h2>発信・活動</h2>
+      <h2>技術記事</h2>
     </div>
-    <div class="link-cards">
-      <a class="link-card reveal" href="https://zenn.dev/catspawengineer" target="_blank" rel="noopener">
-        <h3>📝 Zenn</h3>
-        <p>ローカルLLM・生成AI活用や組み込み開発について、技術記事を書いています。</p>
-        <span class="arrow">記事を読む →</span>
-      </a>
-      <a class="link-card reveal" href="https://x.com/catspawengineer" target="_blank" rel="noopener">
-        <h3>🐦 X（旧Twitter）</h3>
-        <p>日々の開発や生成AIまわりの気づきをつぶやいています。</p>
-        <span class="arrow">@catspawengineer →</span>
-      </a>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="en">Conditions</div>
-      <h2>稼働条件</h2>
-    </div>
-    <div class="cond cards">
-      <div class="card reveal"><span class="icon">📍</span><h3>拠点・稼働形態</h3><p>静岡県。リモート中心で全国対応、必要に応じて出社もご相談ください。</p></div>
-      <div class="card reveal"><span class="icon">📄</span><h3>契約形態</h3><p>業務委託（準委任・請負）。長期参画のほか、スポットの技術相談・生成AI導入相談もお受けします。</p></div>
-      <div class="card reveal"><span class="icon">💬</span><h3>お見積り</h3><p>案件の内容・期間に応じて個別にお見積りします。まずはお気軽にご相談ください。</p></div>
-    </div>
+    <p class="articles-lead">ローカルLLMの運用や、生成AIを組み込み開発の現場で使った記録をZennに書いています。うまくいかなかった話も残しています。</p>
+    <ul class="articles">
+      <li><a href="https://zenn.dev/catspawengineer/articles/b9f055934a75f2" target="_blank" rel="noopener">ローカルLLM環境としてThinkStation PGX（DGX Spark OEM）を選んだ話</a></li>
+      <li><a href="https://zenn.dev/catspawengineer/articles/a7f4efbf9d8e5c" target="_blank" rel="noopener">ローカルLLMにC言語レガシープロジェクトの循環依存リファクタリング計画書を書かせた</a></li>
+      <li><a href="https://zenn.dev/catspawengineer/articles/447b6b97c14579" target="_blank" rel="noopener">レガシープロジェクトに単体テストフレームワークを導入し、生成AIを活用したが失敗した話</a></li>
+    </ul>
+    <a class="articles-more" href="https://zenn.dev/catspawengineer" target="_blank" rel="noopener">Zennの記事一覧を見る →</a>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
     <div class="sec-head" style="text-align:center;">
-      <div class="en">Contact</div>
       <h2>お問い合わせ</h2>
     </div>
+    <dl class="cond">
+      <dt>拠点</dt><dd>静岡県。リモート中心で全国に対応し、必要なら出社も相談に応じます。</dd>
+      <dt>契約</dt><dd>業務委託（準委任・請負）。長期参画も、数時間〜数日のスポット相談も受けます。</dd>
+      <dt>見積</dt><dd>内容と期間に応じて個別に見積もります。</dd>
+    </dl>
     <div class="contact-box">
-      <p class="note">案件のご相談・お見積りのご依頼は、下記フォームからお願いいたします。通常2営業日以内にご返信します。<br>※広告掲載・集客支援・SEO・人材紹介などを含む、営業・勧誘目的のご連絡は固くお断りします。これらへの返信は一切いたしません。</p>
-      <!-- Formspree等のフォームサービスのエンドポイントに差し替えてください -->
+      <p class="note">困っていることややりたいことを、わかる範囲でお書きください。生成AI導入のご相談だけでも歓迎です。通常2営業日以内に返信します。その後、オンラインで面談し、本名と経歴書を開示したうえで契約に進みます。<br>※広告掲載・集客支援・SEO・人材紹介などを含む、営業・勧誘目的のご連絡は固くお断りします。これらへの返信は一切いたしません。</p>
       <form action="https://formspree.io/f/mrenavoy" method="POST">
-        <div class="field">
-          <label>会社名・団体名</label>
-          <input type="text" name="company" placeholder="株式会社◯◯">
+        <input type="hidden" name="_subject" value="【catspawengineer.jp】お問い合わせ">
+        <input type="hidden" name="_next" value="https://catspawengineer.jp/#sent">
+        <div class="field hp" aria-hidden="true">
+          <label for="f-gotcha">このフィールドは空のままにしてください</label>
+          <input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
         <div class="field">
-          <label>お名前<span class="req">必須</span></label>
-          <input type="text" name="name" required placeholder="山田 太郎">
+          <label for="f-company">会社名・団体名</label>
+          <input type="text" id="f-company" name="company" maxlength="100" autocomplete="organization" placeholder="株式会社◯◯">
         </div>
         <div class="field">
-          <label>ご連絡先メールアドレス<span class="req">必須</span></label>
-          <input type="email" name="email" required placeholder="you@example.com">
+          <label for="f-name">お名前<span class="req">必須</span></label>
+          <input type="text" id="f-name" name="name" required maxlength="60" autocomplete="name" placeholder="山田 太郎">
         </div>
         <div class="field">
-          <label>ご相談内容<span class="req">必須</span></label>
-          <textarea name="message" rows="6" required placeholder="案件の概要、想定時期、稼働条件など、わかる範囲でご記入ください。"></textarea>
+          <label for="f-email">ご連絡先メールアドレス<span class="req">必須</span></label>
+          <input type="email" id="f-email" name="email" required maxlength="254" autocomplete="email" placeholder="you@example.com">
         </div>
-        <button type="submit">送信する</button>
-        <p class="policy">いただいた情報はお問い合わせへの対応のみに使用し、第三者に提供することはありません。</p>
+        <div class="field">
+          <label for="f-type">ご相談の種類<span class="req">必須</span></label>
+          <select id="f-type" name="type" required>
+            <option value="" disabled selected>選んでください</option>
+            <option>生成AI・ローカルLLMのスポット相談</option>
+            <option>生成AI環境の構築・PoCの請負</option>
+            <option>組み込みソフト開発への長期参画</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-message">困っていること・やりたいこと<span class="req">必須</span></label>
+          <textarea id="f-message" name="message" rows="6" required maxlength="4000" placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
+        </div>
+        <button type="submit" id="f-submit">相談内容を送る</button>
+        <p class="err" id="f-error" role="alert" hidden>送信できませんでした。通信状況を確認して、もう一度お試しください。入力内容はそのまま残っています。</p>
+        <p class="policy">いただいた情報はお問い合わせへの対応にのみ使い、第三者には渡しません。</p>
       </form>
+      <div class="sent" id="sent" role="status" tabindex="-1" hidden>
+        <h3>送信しました</h3>
+        <p>通常2営業日以内に、ご記入のメールアドレスへ返信します。届かない場合は迷惑メールフォルダをご確認ください。</p>
+      </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="assets/logo-footer.png" alt="ねこのてエンジニア"></div>
-    <p>組み込みソフトウェア開発 × 生成AI活用｜全国リモート対応</p>
-    <p style="margin-top:14px; opacity:.7;">© 2026 Nekonote Engineer. All rights reserved.</p>
+    <div class="brand-f"><img src="assets/logo-footer.png" width="720" height="391" alt="ねこのてエンジニア" loading="lazy"></div>
+    <p>静岡県｜リモート中心で全国対応</p>
+    <p style="margin-top:6px;"><a href="https://zenn.dev/catspawengineer" target="_blank" rel="noopener">Zennの記事</a>｜<a href="https://x.com/catspawengineer" target="_blank" rel="noopener">X（@catspawengineer）</a></p>
+    <p style="margin-top:14px;">© 2026 Nekonote Engineer. All rights reserved.</p>
   </div>
 </footer>
 
 
 <script>
 (function(){
-  document.documentElement.classList.add('js');
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  // 問い合わせフォーム: ページを離れずに送信し、結果をその場に表示する（fetch 非対応なら _next へ通常送信）
+  var form = document.querySelector('#contact form');
+  var btn = document.getElementById('f-submit');
+  var err = document.getElementById('f-error');
+  var sent = document.getElementById('sent');
+  if (form && window.fetch) form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (btn.disabled) return;
+    btn.disabled = true; btn.textContent = '送信中…'; err.hidden = true;
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function(r){ if (!r.ok) throw new Error(r.status); form.hidden = true; sent.hidden = false; sent.focus(); })
+      .catch(function(){ err.hidden = false; btn.disabled = false; btn.textContent = '相談内容を送る'; });
+  });
 })();
 </script>
 </body>
