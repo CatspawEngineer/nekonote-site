@@ -57,12 +57,12 @@ web
 - 本名の扱い（本人の回答）: ページ上には屋号のみを出し、本名は問い合わせ後に開示する。history.html の meta description からは本名を外した（2026-11-05）。
 - 非公開の方針はページ上に明示する（2026-11-05 確認）: 「顧客名・成果物・本名はサイトに載せない。NDA を守る仕事のため。問い合わせ後の面談時に経歴書とあわせて開示する」という趣旨の文と、問い合わせ後の流れ（2営業日以内に返信 → オンライン面談 → 本名・経歴書の開示 → 契約）を載せる。顔写真は出さない。識別できない写真（後ろ姿、手元など）は可。
 - 営業・勧誘目的の連絡（広告掲載、集客支援、SEO、人材紹介など）は明確に断る。この注意書きはフォーム周りに残す。
-- 用語: 屋号は「ねこのてエンジニア」（英語表記 Nekonote Engineer）。「猫の手も借りたい」現場の「あと一人」になる、という由来。契約は「業務委託」「準委任・請負」、短期の相談は「スポット相談」と呼ぶ。
+- 用語: 屋号は「ねこのてエンジニア」（英語表記 CatsPaw Engineer）。「猫の手も借りたい」現場の「あと一人」になる、という由来。契約は「業務委託」「準委任・請負」、短期の相談は「スポット相談」と呼ぶ。
 - 未決事項: 英語版ページの要否は未確認。顔写真の掲載方針は未確認。
 
 ## Brand Commitments
 
-- 名称: ねこのてエンジニア / Nekonote Engineer。ドメイン catspawengineer.jp、SNS は @catspawengineer。
+- 名称: ねこのてエンジニア / CatsPaw Engineer。ドメイン catspawengineer.jp、SNS は @catspawengineer。
 - 既存アセット: assets/logo.png、assets/logo-white.png、assets/logo-footer.png、assets/apple-touch-icon.png、assets/paw.png、assets/paw-small.png、assets/ogp.png。
 - モチーフ: 猫。屋号の由来であり、実際に猫3匹と暮らしている。肉球のマークを使っている。
 - 声: 丁寧で平易な日本語。「です・ます」調。誇張や煽りはしない。
