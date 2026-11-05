@@ -30,9 +30,10 @@
     --ok: #3e7d5a;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body {
     font-family: "Noto Sans JP", sans-serif;
+    overflow-wrap: break-word;
     color: var(--ink);
     background: var(--paper);
     line-height: 1.85;
@@ -159,14 +160,21 @@
   .field label .req { color: var(--accent); font-size: .75rem; margin-left: 6px; }
   .field input, .field textarea, .field select {
     width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px;
-    font: inherit; font-size: .95rem; background: var(--paper);
+    font: inherit; font-size: 1rem; background: var(--paper);
   }
+  .field.hp { display: none; }
   .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--accent); border-color: transparent; }
   .contact-box button {
     width: 100%; background: var(--accent); color: #fff; border: none; font: inherit; font-weight: 700;
     padding: 15px; border-radius: 999px; cursor: pointer; font-size: 1rem;
   }
   .contact-box button:hover { background: var(--accent-deep); }
+  .contact-box button:disabled { background: var(--ink-soft); cursor: progress; }
+  .contact-box .err { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: #fbe9e4; color: #8a3a1f; font-size: .9rem; }
+  .contact-box .sent { padding: 12px 0; }
+  .contact-box .sent h3 { font-size: 1.15rem; margin-bottom: 10px; }
+  .contact-box .sent p { color: var(--ink-soft); font-size: .95rem; }
+  .contact-box .sent:target { display: block; }
   .contact-box .policy { font-size: .8rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
 
 
@@ -218,7 +226,7 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="assets/logo.png" alt="ねこのてエンジニア" style="height:30px;width:auto;display:block;"></a>
+    <a class="brand" href="#top"><img src="assets/logo.png" width="757" height="120" alt="ねこのてエンジニア" style="height:30px;width:auto;display:block;"></a>
     <ul>
       <li><a href="#services">できること</a></li>
       <li><a href="#about">経歴</a></li>
@@ -231,7 +239,7 @@
 </header>
 
 <section class="hero" id="top">
-  <img class="hero-paw" alt="" aria-hidden="true" src="assets/paw.png">
+  <img class="hero-paw" alt="" aria-hidden="true" src="assets/paw.png" width="468" height="496">
   <div class="wrap">
     <h1>開発現場の<span class="em">「ねこのて」</span>になる。<br>組み込み30年 × 生成AI活用。</h1>
     <p class="lead">要件定義から保守運用まで、ソフトウェア開発の全工程に対応。車載・POS・決済端末など大規模プロジェクトで培った30年の経験と、ローカルLLMを中心とした生成AIの実務活用で、人手の足りない現場に確かな手を差し出します。</p>
@@ -388,8 +396,8 @@
       <h2>仕事場と人となり</h2>
     </div>
     <div class="photo-grid reveal">
-      <img src="assets/desk2.jpg" alt="仕事場の様子：32インチ4Kデュアルモニタのデスク環境" loading="lazy">
-      <img src="assets/desk1.jpg" alt="仕事場の様子：開発用デスクトップ環境" loading="lazy">
+      <img src="assets/desk2.jpg" width="1200" height="900" alt="仕事場：32インチ4Kモニタ2台のデスク。中央のモニタ台の下に ThinkStation PGX が2台" loading="lazy">
+      <img src="assets/desk1.jpg" width="1200" height="900" alt="仕事場を正面から。モニタ2台、モバイルワークステーション、ThinkStation PGX 2台" loading="lazy">
     </div>
     <div class="persona">
       <div class="card reveal">
@@ -459,17 +467,23 @@
     <div class="contact-box">
       <p class="note">困っていること・やりたいことを、わかる範囲でお書きください。生成AI導入のご相談だけでも歓迎します。通常2営業日以内にご返信し、オンラインでの面談、本名・経歴書の開示を経て契約に進みます。<br>※広告掲載・集客支援・SEO・人材紹介などを含む、営業・勧誘目的のご連絡は固くお断りします。これらへの返信は一切いたしません。</p>
       <form action="https://formspree.io/f/mrenavoy" method="POST">
+        <input type="hidden" name="_subject" value="【catspawengineer.jp】お問い合わせ">
+        <input type="hidden" name="_next" value="https://catspawengineer.jp/#sent">
+        <div class="field hp" aria-hidden="true">
+          <label for="f-gotcha">このフィールドは空のままにしてください</label>
+          <input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
         <div class="field">
           <label for="f-company">会社名・団体名</label>
-          <input type="text" id="f-company" name="company" placeholder="株式会社◯◯">
+          <input type="text" id="f-company" name="company" maxlength="100" autocomplete="organization" placeholder="株式会社◯◯">
         </div>
         <div class="field">
           <label for="f-name">お名前<span class="req">必須</span></label>
-          <input type="text" id="f-name" name="name" required placeholder="山田 太郎">
+          <input type="text" id="f-name" name="name" required maxlength="60" autocomplete="name" placeholder="山田 太郎">
         </div>
         <div class="field">
           <label for="f-email">ご連絡先メールアドレス<span class="req">必須</span></label>
-          <input type="email" id="f-email" name="email" required placeholder="you@example.com">
+          <input type="email" id="f-email" name="email" required maxlength="254" autocomplete="email" placeholder="you@example.com">
         </div>
         <div class="field">
           <label for="f-type">ご相談の種類<span class="req">必須</span></label>
@@ -483,18 +497,23 @@
         </div>
         <div class="field">
           <label for="f-message">困っていること・やりたいこと<span class="req">必須</span></label>
-          <textarea id="f-message" name="message" rows="6" required placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
+          <textarea id="f-message" name="message" rows="6" required maxlength="4000" placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
         </div>
-        <button type="submit">相談内容を送る</button>
+        <button type="submit" id="f-submit">相談内容を送る</button>
+        <p class="err" id="f-error" role="alert" hidden>送信できませんでした。通信状況を確認して、もう一度お試しください。入力内容はそのまま残っています。</p>
         <p class="policy">いただいた情報はお問い合わせへの対応のみに使用し、第三者に提供することはありません。</p>
       </form>
+      <div class="sent" id="sent" role="status" tabindex="-1" hidden>
+        <h3>送信しました</h3>
+        <p>通常2営業日以内に、ご記入のメールアドレスへ返信します。届かない場合は迷惑メールフォルダをご確認ください。</p>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="brand-f"><img src="assets/logo-footer.png" alt="ねこのてエンジニア"></div>
+    <div class="brand-f"><img src="assets/logo-footer.png" width="720" height="391" alt="ねこのてエンジニア"></div>
     <p>組み込みソフトウェア開発 × 生成AI活用｜全国リモート対応</p>
     <p style="margin-top:14px; opacity:.7;">© 2026 Nekonote Engineer. All rights reserved.</p>
   </div>
@@ -508,6 +527,20 @@
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // 問い合わせフォーム: ページを離れずに送信し、結果をその場に表示する（fetch 非対応なら _next へ通常送信）
+  var form = document.querySelector('#contact form');
+  var btn = document.getElementById('f-submit');
+  var err = document.getElementById('f-error');
+  var sent = document.getElementById('sent');
+  if (form && window.fetch) form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (btn.disabled) return;
+    btn.disabled = true; btn.textContent = '送信中…'; err.hidden = true;
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function(r){ if (!r.ok) throw new Error(r.status); form.hidden = true; sent.hidden = false; sent.focus(); })
+      .catch(function(){ err.hidden = false; btn.disabled = false; btn.textContent = '相談内容を送る'; });
+  });
 })();
 </script>
 </body>
