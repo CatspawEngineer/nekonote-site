@@ -58,7 +58,7 @@
   }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
   .brand { font-family: "Zen Maru Gothic", sans-serif; font-weight: 900; font-size: 1.05rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 7px 0; }
-  .brand .paw { font-size: 1.2rem; }
+  .brand img { height: 30px; width: auto; display: block; }
   .nav ul { display: flex; gap: 22px; list-style: none; }
   .nav ul a { text-decoration: none; color: var(--ink-soft); font-size: .9rem; font-weight: 500; }
   .nav ul a:hover { color: var(--accent-deep); }
@@ -107,7 +107,7 @@
   .hero .actions { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-main {
     background: var(--accent-deep); color: var(--on-accent); text-decoration: none; font-weight: 700;
-    padding: 14px 34px; border-radius: 999px; box-shadow: 0 4px 14px rgba(201,111,74,.3);
+    padding: 14px 34px; border-radius: 999px; box-shadow: 0 4px 14px rgba(164,82,47,.28);
   }
   .btn-main:hover { background: var(--accent-ink); }
   .btn-sub { color: var(--ink-soft); text-decoration: none; font-weight: 500; padding: 14px 10px; }
@@ -121,14 +121,15 @@
   .sec-head h2::before { content: ""; display: inline-block; width: .62em; height: .66em; margin-right: .3em; vertical-align: -.04em; background: url("assets/paw-small.png") no-repeat center/contain; }
 
   /* services */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(3, 1fr); } }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 30px 26px;
     box-shadow: 0 2px 10px rgba(43,43,51,.04);
   }
   .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
   .card p { font-size: .92rem; color: var(--ink-soft); }
-  .card .tag { display: inline-block; margin-top: 14px; background: var(--paper-warm); color: var(--accent-deep); font-size: .78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+  .card .tag { display: inline-block; margin-top: 14px; background: var(--paper-warm); color: var(--accent-deep); font-size: .82rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
 
   /* about */
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
@@ -149,7 +150,6 @@
 
   /* works */
   .work { padding: 24px 0; border-bottom: 1px solid var(--line); }
-  .work:first-of-type { border-top: 1px solid var(--line); }
   .work .head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
   .work h3 { font-size: 1.05rem; font-weight: 700; }
   .work .period { color: var(--accent-deep); font-size: .82rem; font-weight: 700; white-space: nowrap; }
@@ -198,7 +198,7 @@
   .contact-box .sent h3 { font-size: 1.15rem; margin-bottom: 10px; }
   .contact-box .sent p { color: var(--ink-soft); font-size: .95rem; }
   .contact-box .sent:target { display: block; }
-  .contact-box .policy { font-size: .8rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
+  .contact-box .policy { font-size: .85rem; color: var(--ink-soft); margin-top: 18px; text-align: center; }
 
 
   /* stats band */
@@ -239,7 +239,7 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="assets/logo.png" width="757" height="120" alt="ねこのてエンジニア" style="height:30px;width:auto;display:block;"></a>
+    <a class="brand" href="#top"><img src="assets/logo.png" width="757" height="120" alt="ねこのてエンジニア"></a>
     <nav aria-label="セクション">
       <ul>
         <li><a href="#services">できること</a></li>
@@ -296,7 +296,7 @@
       </div>
       <div class="card">
         <h3>生成AI活用支援</h3>
-        <p>Ollama / vLLM / llama.cpp / Open WebUI によるローカルLLM環境の構築と、Claude Code 等を使った開発・テストの効率化。<strong>機密性の高い組み込み開発の現場でも使える「ローカル完結」の生成AI導入</strong>を、実務での運用経験にもとづいて支援します。スポットの技術相談（数時間〜数日）から、環境構築・PoCの請負、開発チームへの長期参画まで。</p>
+        <p>Ollama / vLLM / llama.cpp / Open WebUI によるローカルLLM環境の構築と、Claude Code 等を使った開発・テストの効率化。<strong>機密性の高い組み込み開発の現場でも使える「ローカル完結」の生成AI導入</strong>を、実務での運用経験にもとづいて支援します。</p>
         <span class="tag">ローカルLLM / 開発効率化</span>
       </div>
       <div class="card">
