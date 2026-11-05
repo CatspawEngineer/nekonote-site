@@ -122,7 +122,8 @@
 
   /* services */
   .cards { display: grid; grid-template-columns: 1fr; gap: 22px; }
-  @media (min-width: 768px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } .cards .card:last-child { grid-column: 1 / -1; } }
+  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } .cards .card:last-child { grid-column: auto; } }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 30px 26px;
     box-shadow: 0 2px 10px rgba(43,43,51,.04);
