@@ -1,1 +1,5 @@
 .serena/
+shots/
+.impeccable/critique/*
+!.impeccable/critique/ignore.md
+.impeccable/hook.cache.json
