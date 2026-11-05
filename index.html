@@ -481,11 +481,11 @@
         </div>
         <div class="field">
           <label for="f-company">会社名・団体名</label>
-          <input type="text" id="f-company" name="company" maxlength="100" autocomplete="organization" placeholder="株式会社◯◯">
+          <input type="text" id="f-company" name="会社名・団体名" maxlength="100" autocomplete="organization" placeholder="株式会社◯◯">
         </div>
         <div class="field">
           <label for="f-name">お名前<span class="req">必須</span></label>
-          <input type="text" id="f-name" name="name" required maxlength="60" autocomplete="name" placeholder="山田 太郎">
+          <input type="text" id="f-name" name="お名前" required maxlength="60" autocomplete="name" placeholder="山田 太郎">
         </div>
         <div class="field">
           <label for="f-email">ご連絡先メールアドレス<span class="req">必須</span></label>
@@ -493,7 +493,7 @@
         </div>
         <div class="field">
           <label for="f-type">ご相談の種類<span class="req">必須</span></label>
-          <select id="f-type" name="type" required>
+          <select id="f-type" name="ご相談の種類" required>
             <option value="" disabled selected>選んでください</option>
             <optgroup label="生成AI活用支援">
               <option value="生成AI活用支援：スポット相談">スポット相談（構成・ツール選定・進め方）</option>
@@ -508,7 +508,7 @@
         </div>
         <div class="field">
           <label for="f-message">困っていること・やりたいこと<span class="req">必須</span></label>
-          <textarea id="f-message" name="message" rows="6" required maxlength="4000" placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
+          <textarea id="f-message" name="困っていること・やりたいこと" rows="6" required maxlength="4000" placeholder="例：機密を外に出さずに生成AIを現場で使いたい／テスト工数を減らしたい／C言語の案件に人手が要る。時期や稼働条件がわかれば添えてください。"></textarea>
         </div>
         <button type="submit" id="f-submit">相談内容を送る</button>
         <p class="err" id="f-error" role="alert" hidden>送信できませんでした。通信状況を確認して、もう一度お試しください。入力内容はそのまま残っています。</p>
