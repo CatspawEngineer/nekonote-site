@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ねこのてエンジニア｜組み込みソフトウェア開発30年 × 生成AI活用</title>
 <meta name="description" content="組み込みソフトウェア開発30年のフリーランスエンジニア。要件定義から保守まで全工程対応。車載(AUTOSAR/ISO26262)・POS・決済端末の開発経験と、ローカルLLMを中心とした生成AI活用支援。静岡県拠点・リモート対応。">
 <link rel="icon" type="image/png" href="assets/paw-small.png">
@@ -60,7 +60,18 @@
     font-weight: 700; text-decoration: none; font-size: .9rem;
   }
   .nav .cta:hover { background: var(--accent-deep); }
-  @media (max-width: 720px) { .nav ul { display: none; } }
+  .bar { display: none; }
+  @media (max-width: 720px) {
+    .nav ul, .nav .cta { display: none; }
+    /* 片手で届く位置に主要な移動先: 画面下固定のバー */
+    .bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; gap: 6px;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--line); }
+    .bar a { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 46px; border-radius: 999px;
+      text-decoration: none; font-weight: 700; font-size: .92rem; color: var(--ink); }
+    .bar a:active { background: var(--paper-warm); }
+    .bar a.primary { flex: 1.7; background: var(--accent-deep); color: #fff; }
+    body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); }
+  }
 
   /* hero */
   .hero { padding: 88px 0 72px; position: relative; overflow: hidden; background:
@@ -76,6 +87,9 @@
   @media (max-width: 860px) { .hero-paw { opacity: .18; width: 300px; right: -80px; } }
   .hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; line-height: 1.35; margin-bottom: 22px; }
   .hero h1 .em { color: var(--accent); }
+  .hero h1 .nw { white-space: nowrap; }
+  @media (max-width: 360px) { .hero h1 { font-size: 1.65rem; } }
+  @media (max-width: 480px) { .hero .actions > a { width: 100%; text-align: center; } }
   .hero .lead { color: var(--ink-soft); max-width: 640px; margin-bottom: 30px; }
   .hero .status {
     display: inline-flex; align-items: center; gap: 8px;
@@ -93,7 +107,7 @@
   .btn-sub:hover { color: var(--accent-deep); }
 
   /* sections */
-  section { padding: 76px 0; }
+  section { padding: 76px 0; scroll-margin-top: 61px; }
   section.alt { background: var(--paper-warm); }
   .sec-head { margin-bottom: 44px; }
   .sec-head .en { color: var(--accent); font-weight: 700; letter-spacing: .15em; font-size: .8rem; text-transform: uppercase; }
@@ -237,11 +251,17 @@
     <a class="cta" href="#contact">お問い合わせ</a>
   </div>
 </header>
+<nav class="bar" aria-label="ページ内の移動">
+  <a href="#works">実績</a>
+  <a href="#about">経歴</a>
+  <a href="#skills">スキル</a>
+  <a class="primary" href="#contact">お問い合わせ</a>
+</nav>
 
 <section class="hero" id="top">
   <img class="hero-paw" alt="" aria-hidden="true" src="assets/paw.png" width="468" height="496">
   <div class="wrap">
-    <h1>開発現場の<span class="em">「ねこのて」</span>になる。<br>組み込み30年 × 生成AI活用。</h1>
+    <h1>開発現場の<span class="nw"><span class="em">「ねこのて」</span>になる。</span><br>組み込み30年 × <span class="nw">生成AI活用。</span></h1>
     <p class="lead">要件定義から保守運用まで、ソフトウェア開発の全工程に対応。車載・POS・決済端末など大規模プロジェクトで培った30年の経験と、ローカルLLMを中心とした生成AIの実務活用で、人手の足りない現場に確かな手を差し出します。</p>
     <div class="status">長期案件に参画中。スポット相談・小規模案件は並行して受付中（2営業日以内に返信）</div>
     <div class="actions">
